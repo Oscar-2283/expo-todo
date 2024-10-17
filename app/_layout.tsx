@@ -3,9 +3,9 @@ import { SplashScreen, Stack } from 'expo-router';
 import { useEffect } from 'react';
 import * as React from 'react';
 import { TamaguiProvider } from 'tamagui';
-import { View, Text, Theme } from 'tamagui';
 import tamaguiConfig from '../tamagui.config';
 import useCommonStore from '@/app/store/common';
+import { StatusBar } from 'expo-status-bar';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -38,8 +38,9 @@ export default function RootLayout() {
 
   return (
     <TamaguiProvider config={tamaguiConfig} defaultTheme={themeType}>
+      <StatusBar style={themeType === 'light' ? 'auto' : 'light'}  />
       <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="(home)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
     </TamaguiProvider>

@@ -6,7 +6,7 @@ interface CommonStore {
 }
 
 const useCommonStore = create<CommonStore>((set) => ({
-  themeType: 'light_accent',
+  themeType: 'dark',
   setThemeType: (themeType) => set({ themeType }),
 }))
 

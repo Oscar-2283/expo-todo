@@ -2,7 +2,7 @@ import { Button, View, ScrollView, Text, YStack } from 'tamagui';
 import { useState } from 'react';
 import useCommonStore from '@/app/store/common';
 
-export default function HomeScreen() {
+export default function ThemeScreen() {
   const { themeType, setThemeType } = useCommonStore();
   const [changeTheme, setChangeTheme] = useState(false);
 
