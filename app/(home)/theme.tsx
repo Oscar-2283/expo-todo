@@ -1,14 +1,10 @@
-import { Button, View, ScrollView, Text, YStack } from 'tamagui';
-import { useState } from 'react';
+import { Button, View, YStack } from 'tamagui';
 import useCommonStore from '@/app/store/common';
 
 export default function ThemeScreen() {
-  const { themeType, setThemeType } = useCommonStore();
-  const [changeTheme, setChangeTheme] = useState(false);
-
+  const { setThemeType } = useCommonStore();
   const changeThemeHandler = (type:any) => {
-      setThemeType(type);
-    setChangeTheme(!changeTheme);
+    setThemeType(type);
   };
 
   return (

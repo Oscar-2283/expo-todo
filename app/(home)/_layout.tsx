@@ -12,6 +12,9 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: theme.color5?.val ?? '',
         headerShown: false,
+        tabBarStyle: {
+          backgroundColor: theme.background075?.val ?? '', 
+        },
       }}>
       <Tabs.Screen
         name="index"
