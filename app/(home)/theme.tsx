@@ -1,5 +1,5 @@
 import { Button, View, YStack } from 'tamagui';
-import useCommonStore from '@/app/store/common';
+import useCommonStore from '@/store/common';
 
 export default function ThemeScreen() {
   const { setThemeType } = useCommonStore();
