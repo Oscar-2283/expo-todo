@@ -1,8 +1,16 @@
 import React, { useState, useCallback, useMemo, useRef } from 'react';
 import { TouchableOpacity } from 'react-native';
-import { Text, View, XStack, ScrollView, TamaguiElement, useTheme } from 'tamagui';
+import {
+  Text,
+  View,
+  XStack,
+  ScrollView,
+  TamaguiElement,
+  useTheme,
+} from 'tamagui';
 import { Calendar } from 'react-native-calendars';
 import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons';
+
 import dayjs from 'dayjs';
 
 const INITIAL_DATE = dayjs().format('YYYY-MM-DD');
@@ -20,7 +28,7 @@ type CustomHeaderProps = {
 };
 
 type CalendarScreenProps = {
-  onDaySelect?: (date: string) => void; 
+  onDaySelect?: (date: string) => void;
 };
 
 const CalendarScreen: React.FC<CalendarScreenProps> = ({ onDaySelect }) => {
@@ -32,12 +40,15 @@ const CalendarScreen: React.FC<CalendarScreenProps> = ({ onDaySelect }) => {
     return dayjs(INITIAL_DATE).add(count, 'day').format('YYYY-MM-DD');
   };
 
-  const onDayPress = useCallback((day: DayPressEvent) => {
-    setSelected(day.dateString);
-    if (onDaySelect) {
-      onDaySelect(day.dateString); // 當用戶選擇日期時，傳遞選中的日期
-    }
-  }, [onDaySelect]);
+  const onDayPress = useCallback(
+    (day: DayPressEvent) => {
+      setSelected(day.dateString);
+      if (onDaySelect) {
+        onDaySelect(day.dateString); // 當用戶選擇日期時，傳遞選中的日期
+      }
+    },
+    [onDaySelect]
+  );
 
   const marked = useMemo(() => {
     return {
@@ -60,7 +71,12 @@ const CalendarScreen: React.FC<CalendarScreenProps> = ({ onDaySelect }) => {
 
       return (
         <View ref={ref} {...props}>
-          <XStack justifyContent="space-between" padding="$2" backgroundColor="$background">
+          <XStack
+            justifyContent="space-between"
+            alignItems="center"
+            padding="$2"
+            backgroundColor="$background"
+          >
             <TouchableOpacity onPress={movePrevious}>
               <ArrowLeft />
             </TouchableOpacity>
