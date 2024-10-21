@@ -30,7 +30,7 @@ export default function HomeScreen() {
 
       <XStack alignItems="center" position="absolute" bottom="$3" right="$4">
         <Pressable onPress={() => setModalVisible(true)}>
-          <View backgroundColor="$color3" padding="$2" borderRadius="100%">
+          <View backgroundColor="$color3" padding="$2" borderRadius="$10">
             <Plus size="$3" />
           </View>
         </Pressable>
