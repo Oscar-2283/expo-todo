@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import SharedModal from '@/components/SharedModal';
 import { XStack, YStack, Text, View } from 'tamagui';
-import CalendarScreen from '../CalendarScreen';
+import CalendarScreen from '../components/CalendarScreen/index';
 
 interface AddModalProps {
   modalVisible: boolean;

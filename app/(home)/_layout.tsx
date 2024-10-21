@@ -26,11 +26,29 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="theme"
+        name="theme/index"
         options={{
           title: 'theme',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="oscar/index"
+        options={{
+          title: 'oscar',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name={focused ? 'accessibility' : 'accessibility-outline'} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="jett/index"
+        options={{
+          title: 'jett',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name={focused ? 'walk' : 'walk-outline'} color={color} />
           ),
         }}
       />
