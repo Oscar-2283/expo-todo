@@ -1,12 +1,18 @@
 import { useState } from 'react';
-import { Button, View, ScrollView, XStack } from 'tamagui';
-import { Expand, Plus, EllipsisVertical } from '@tamagui/lucide-icons';
+import {
+  Button,
+  View,
+  ScrollView,
+  XStack,
+  Text,
+} from 'tamagui';
+import { Plus, EllipsisVertical } from '@tamagui/lucide-icons';
 import AddTodoModal from '@/screens/(home)/home/components/AddTodoModal';
+import TodoListScreen from '@/screens/(home)/home/components/TodoListScreen';
 import { Pressable } from 'react-native';
 
 export default function HomeScreen() {
   const [modalVisible, setModalVisible] = useState(false);
-
   return (
     <>
       <View paddingTop="$10" flex={1} backgroundColor="$background">
@@ -17,11 +23,21 @@ export default function HomeScreen() {
             flex={1}
           >
             <XStack gap="$3">
-              <Button>2283</Button>
-              <Button>2283</Button>
-              <Button>2283</Button>
-              <Button>2283</Button>
-              <Button>2283</Button>
+              <Button>
+                <Text>2283</Text>
+              </Button>
+              <Button>
+                <Text>2283</Text>
+              </Button>
+              <Button>
+                <Text>2283</Text>
+              </Button>
+              <Button>
+                <Text>2283</Text>
+              </Button>
+              <Button>
+                <Text>2283</Text>
+              </Button>
             </XStack>
           </ScrollView>
           <Pressable
@@ -33,11 +49,7 @@ export default function HomeScreen() {
           </Pressable>
         </XStack>
 
-        <View flex={1} padding="$3">
-          <View flex={1} justifyContent="center" alignItems="center">
-            <Expand size="$10" />
-          </View>
-        </View>
+        <TodoListScreen />
       </View>
       <AddTodoModal
         modalVisible={modalVisible}

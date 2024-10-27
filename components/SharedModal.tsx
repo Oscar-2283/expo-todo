@@ -33,7 +33,7 @@ const SharedModal: FC<SharedModalProps> = ({
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <View
           style={{
-            backgroundColor: theme.color5?.val ?? '',
+            backgroundColor: theme.color3?.val ?? '',
             padding: 20,
             borderRadius: 10,
             width: width ? width : '90%',
