@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import styles from './_style';
 
-const Oscar = () => {
+const Search = () => {
   return (
     <>
       <View style={styles.container}>
@@ -12,4 +12,4 @@ const Oscar = () => {
   );
 }
  
-export default Oscar;
+export default Search;

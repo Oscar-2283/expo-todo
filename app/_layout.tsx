@@ -41,7 +41,7 @@ export default function RootLayout() {
     <TamaguiProvider config={tamaguiConfig} defaultTheme={themeType}>
       <StatusBar style={themeType === 'light' ? 'auto' : 'light'}  />
       <Stack>
-        <Stack.Screen name="(home)" options={{ headerShown: false }} />
+        <Stack.Screen name="(basic)" options={{ headerShown: false }}/>
         <Stack.Screen name="+not-found" />
       </Stack>
     </TamaguiProvider>

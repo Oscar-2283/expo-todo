@@ -1,10 +1,10 @@
 import React from 'react';
-import JettScreen from '@/screens/(home)/jett/index';
+import PersonScreen from '@/screens/(basic)/person/index';
 
 const Jett = () => {
   return (
     <>
-      <JettScreen/>
+      <PersonScreen/>
     </>
   );
 }

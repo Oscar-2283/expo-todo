@@ -7,8 +7,8 @@ import {
   Text,
 } from 'tamagui';
 import { Plus, EllipsisVertical } from '@tamagui/lucide-icons';
-import AddTodoModal from '@/screens/(home)/home/components/AddTodoModal';
-import TodoListScreen from '@/screens/(home)/home/components/TodoListScreen';
+import AddTodoModal from '@/screens/(basic)/home/components/AddTodoModal';
+import TodoListScreen from '@/screens/(basic)/home/components/TodoListScreen';
 import { Pressable } from 'react-native';
 
 export default function HomeScreen() {

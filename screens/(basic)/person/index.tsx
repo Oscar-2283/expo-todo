@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import styles from './_style';
 
-const Jett = () => {
+const Personal = () => {
   return (
     <>
       <View style={styles.container}>
@@ -12,4 +12,4 @@ const Jett = () => {
   );
 }
  
-export default Jett;
+export default Personal;

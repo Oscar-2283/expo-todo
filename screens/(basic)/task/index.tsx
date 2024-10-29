@@ -1,7 +1,7 @@
 import { Button, View, YStack } from 'tamagui';
 import useCommonStore from '@/store/common';
 
-export default function ThemeScreen() {
+const Task = () => {
   const { setThemeType } = useCommonStore();
   const changeThemeHandler = (type:any) => {
     setThemeType(type);
@@ -20,3 +20,5 @@ export default function ThemeScreen() {
     </>
   );
 }
+
+export default Task;

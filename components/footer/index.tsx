@@ -1,11 +1,10 @@
 import { Tabs } from 'expo-router';
-import React from 'react';
-
+// import React from 'react';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { useTheme } from 'tamagui'
+import { useTheme } from 'tamagui';
 
-export default function TabLayout() {
-  const theme = useTheme()
+const Footer = () => {
+  const theme = useTheme();
 
   return (
     <Tabs
@@ -26,32 +25,43 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="theme/index"
+        name="task/index"
         options={{
-          title: 'theme',
+          title: 'document',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+            <TabBarIcon name={focused ? 'document' : 'document-outline'} color={color} />
           ),
         }}
       />
       <Tabs.Screen
-        name="oscar/index"
+        name="calendar/index"
         options={{
-          title: 'oscar',
+          title: 'calendar',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'accessibility' : 'accessibility-outline'} color={color} />
+            <TabBarIcon name={focused ? 'calendar' : 'calendar-outline'} color={color} />
           ),
         }}
       />
       <Tabs.Screen
-        name="jett/index"
+        name="search/index"
         options={{
-          title: 'jett',
+          title: 'search',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'walk' : 'walk-outline'} color={color} />
+            <TabBarIcon name={focused ? 'search' : 'search-outline'} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="person/index"
+        options={{
+          title: 'person',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name={focused ? 'person' : 'person-outline'} color={color} />
           ),
         }}
       />
     </Tabs>
   );
 }
+
+export default Footer;
