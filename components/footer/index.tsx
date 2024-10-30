@@ -1,43 +1,18 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { Tabs } from 'expo-router';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { useTheme, Sheet, YStack, XStack, Button } from 'tamagui';
+import { useTheme } from 'tamagui';
+import { TouchableOpacity } from 'react-native';
 
-const Footer = () => {
+interface FooterProps {
+  onHomePress: () => void;
+}
+
+const Footer:FC<FooterProps> = ({ onHomePress }) => {
   const theme = useTheme();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [position, setPosition] = React.useState(0)
 
   return (
     <>
-      {/* Sidebar 使用 Sheet */}
-      {/* <Sheet
-        modal
-        open={isSidebarOpen}
-        onOpenChange={setIsSidebarOpen}
-        snapPoints={[85, 50, 25]}
-        dismissOnSnapToBottom
-        animation="medium"
-        forceRemoveScrollEnabled={isSidebarOpen}
-        position={position}
-        onPositionChange={setPosition}
-        zIndex={100_000}
-      >
-        <Sheet.Frame style={{ backgroundColor: theme.background075?.val ?? '', padding: 16 }}>
-          <YStack gap="$4">
-            <Button onPress={() => setIsSidebarOpen(false)}>Close Sidebar</Button>
-            <XStack gap="$2" alignItems="center">
-              <TabBarIcon name="home-outline" color={theme.color5?.val ?? ''} />
-              <Button>Home</Button>
-            </XStack>
-            <XStack gap="$2" alignItems="center">
-              <TabBarIcon name="document-outline" color={theme.color5?.val ?? ''} />
-              <Button>Document</Button>
-            </XStack>
-          </YStack>
-        </Sheet.Frame>
-      </Sheet> */}
-
       {/* Tabs 組件 */}
       <Tabs
         screenOptions={{
@@ -48,36 +23,21 @@ const Footer = () => {
           },
         }}
       >
-        {/* 改為 Sidebar 開啟按鈕 */}
-        {/* <Tabs.Screen
-          name="sidebar-toggle"
-          options={{
-            title: 'Sidebar',
-            tabBarIcon: ({ color, focused }) => (
-              <Button
-                onPress={() => setIsSidebarOpen(true)}
-                style={{ backgroundColor: 'transparent' }}
-              >
-                <TabBarIcon name="menu" color={color} />
-              </Button>
-            ),
-          }}
-        /> */}
-
         <Tabs.Screen
-          name="index"
+          name="task/index"
           options={{
             title: 'Home',
             tabBarIcon: ({ color, focused }) => (
               <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
             ),
+            tabBarButton: (props) => (
+              <TouchableOpacity {...props} onPress={onHomePress} />
+            ), // 不執行路由跳轉
           }}
         />
-
-
         {/* 其他 Tabs.Screen 保持不變 */}
         <Tabs.Screen
-          name="task/index"
+          name="index"
           options={{
             title: 'Document',
             tabBarIcon: ({ color, focused }) => (
