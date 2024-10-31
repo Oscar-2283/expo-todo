@@ -1,7 +1,7 @@
 import React from 'react';
 import PersonScreen from '@/screens/(basic)/person/index';
 
-const Jett = () => {
+const Person = () => {
   return (
     <>
       <PersonScreen/>
@@ -9,4 +9,4 @@ const Jett = () => {
   );
 }
  
-export default Jett;
+export default Person;

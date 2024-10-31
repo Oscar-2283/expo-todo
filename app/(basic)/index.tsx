@@ -1,9 +1,11 @@
 import HomeScreen from '@/screens/(basic)/home/index';
 
-export default function Home() {
+const Home = () => {
   return (
     <>
       <HomeScreen />
     </>
   );
 }
+
+export default Home

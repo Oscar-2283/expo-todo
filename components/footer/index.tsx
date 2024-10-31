@@ -15,20 +15,24 @@ const Footer:FC<FooterProps> = ({ onHomePress }) => {
     <>
       {/* Tabs 組件 */}
       <Tabs
-        screenOptions={{
+        screenOptions={({ route }) => ({
           tabBarActiveTintColor: theme.color5?.val ?? '',
           headerShown: false,
           tabBarStyle: {
-            backgroundColor: theme.background075?.val ?? '', 
+            backgroundColor: theme.background075?.val ?? '',
+            alignItems: 'center',
           },
-        }}
+          tabBarLabelStyle: {
+            display: route.name === 'drawer/index' ? 'none' : 'flex',
+          }
+        })}
       >
         <Tabs.Screen
-          name="task/index"
+          name="drawer/index"
           options={{
-            title: 'Home',
+            tabBarShowLabel: false, // 隱藏標題
             tabBarIcon: ({ color, focused }) => (
-              <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
+              <TabBarIcon name={focused ? 'menu' : 'menu-outline'} color={color} />
             ),
             tabBarButton: (props) => (
               <TouchableOpacity {...props} onPress={onHomePress} />
@@ -39,7 +43,7 @@ const Footer:FC<FooterProps> = ({ onHomePress }) => {
         <Tabs.Screen
           name="index"
           options={{
-            title: 'Document',
+            title: '任務',
             tabBarIcon: ({ color, focused }) => (
               <TabBarIcon name={focused ? 'document' : 'document-outline'} color={color} />
             ),
@@ -48,25 +52,16 @@ const Footer:FC<FooterProps> = ({ onHomePress }) => {
         <Tabs.Screen
           name="calendar/index"
           options={{
-            title: 'Calendar',
+            title: '日曆',
             tabBarIcon: ({ color, focused }) => (
               <TabBarIcon name={focused ? 'calendar' : 'calendar-outline'} color={color} />
             ),
           }}
         />
         <Tabs.Screen
-          name="search/index"
-          options={{
-            title: 'Search',
-            tabBarIcon: ({ color, focused }) => (
-              <TabBarIcon name={focused ? 'search' : 'search-outline'} color={color} />
-            ),
-          }}
-        />
-        <Tabs.Screen
           name="person/index"
           options={{
-            title: 'Person',
+            title: '我的',
             tabBarIcon: ({ color, focused }) => (
               <TabBarIcon name={focused ? 'person' : 'person-outline'} color={color} />
             ),

@@ -1,7 +1,7 @@
 import React from 'react';
 import CalendarScreen from '@/screens/(basic)/calendar/index';
 
-const Oscar = () => {
+const Calendar = () => {
   return (
     <>
       <CalendarScreen />
@@ -9,4 +9,4 @@ const Oscar = () => {
   );
 }
  
-export default Oscar;
+export default Calendar;
