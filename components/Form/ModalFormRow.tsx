@@ -1,15 +1,17 @@
 import { FC, ReactNode } from 'react';
 import { XStack, Text } from 'tamagui';
+import type { XStackProps } from 'tamagui';
 
-interface FormRowProps {
+
+interface ModalFormRowProps {
   label: string;
   icon: ReactNode;
   children: ReactNode;
 }
 
-const FormRow: FC<FormRowProps> = ({ label, icon, children }) => {
+const ModalFormRow: FC<ModalFormRowProps & XStackProps> = ({ label, icon, children, ...props }) => {
   return (
-    <XStack flex={1} justifyContent="space-between" alignItems="center">
+    <XStack flex={1} justifyContent="space-between" alignItems="center" {...props} >
       <XStack flex={1} alignItems="center" gap="$2">
         {icon}
         <Text>{label}</Text>
@@ -19,4 +21,4 @@ const FormRow: FC<FormRowProps> = ({ label, icon, children }) => {
   );
 };
 
-export default FormRow;
+export default ModalFormRow;
