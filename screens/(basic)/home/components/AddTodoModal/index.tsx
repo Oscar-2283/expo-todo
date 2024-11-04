@@ -30,7 +30,7 @@ interface AddModalProps {
 const AddTodoModal: FC<AddModalProps> = ({ modalVisible, setModalVisible }) => {
   const { AddTodo } = useTodoStore();
   const [title, setTitle] = useState('');
-  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [selectedDate, setSelectedDate] = useState<string | null>(dayjs().format('YYYY-MM-DD'));
   const [time, setTime] = useState<Date | null>(null);
   const [reminderTime, setReminderTime] = useState<Date | null>(null);
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
@@ -101,6 +101,7 @@ const AddTodoModal: FC<AddModalProps> = ({ modalVisible, setModalVisible }) => {
       description: '',
       subTasks: [],
       notes: '',
+      checked: false,
     };
 
     AddTodo(formData);

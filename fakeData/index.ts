@@ -16,6 +16,7 @@ export const FakeTodoData: TodoItem[] = [
         },
         repeat: "不重複",
         notes: "備註 A1",
+        checked: false,
       },
     ],
     dueDate: "2024/10/14",
@@ -26,5 +27,6 @@ export const FakeTodoData: TodoItem[] = [
     },
     repeat: "不重複",
     notes: "這是主項目的備註 A",
+    checked: false,
   },
 ];

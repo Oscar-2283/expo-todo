@@ -8,10 +8,11 @@ export interface TodoItem {
   reminder: {
     time: string;
   };
-  repeat: "重複" | "不重複" ;
+  repeat: string;
   attachments?: string[];  //
   notes?: string;
   tag?: string[];
+  checked: boolean;
 }
 
 export interface TodoSubTask {
@@ -23,7 +24,8 @@ export interface TodoSubTask {
   reminder: {
     time: string;
   };
-  repeat: "重複" | "不重複" ;
+  repeat: string ;
   attachments?: string[];
   notes?: string;
+  checked?: boolean;
 }
