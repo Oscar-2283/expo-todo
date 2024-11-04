@@ -1,3 +1,4 @@
+import { Colors } from '@/constants/Colors';
 import { create } from 'zustand'
 
 interface CommonStore {
@@ -7,7 +8,8 @@ interface CommonStore {
 
 const useCommonStore = create<CommonStore>((set) => ({
   themeType: 'dark',
-  setThemeType: (themeType) => set({ themeType }),
+  // setThemeType: (themeType) => set({ themeType }),
+  setThemeType: (themeType: 'dark' | 'light' | 'light_accent' | 'dark_accent') => set({ themeType }),
 }))
 
 export default useCommonStore

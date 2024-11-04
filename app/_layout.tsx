@@ -14,7 +14,7 @@ export {
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
+  initialRouteName: '(basic)',
 };
 
 // Prevent the splash screen from auto-hiding before getting the color scheme.
@@ -41,7 +41,8 @@ export default function RootLayout() {
     <TamaguiProvider config={tamaguiConfig} defaultTheme={themeType}>
       <StatusBar style={themeType === 'light' ? 'auto' : 'light'}  />
       <Stack>
-        <Stack.Screen name="(basic)" options={{ headerShown: false }}/>
+        <Stack.Screen name="(basic)" options={{ headerShown: false }} />
+        <Stack.Screen name="(other)/theme/index" options={{ headerShown: true, title: 'Theme' }} />
         <Stack.Screen name="+not-found" />
       </Stack>
     </TamaguiProvider>

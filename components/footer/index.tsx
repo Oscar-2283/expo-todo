@@ -8,8 +8,58 @@ interface FooterProps {
   onHomePress: () => void;
 }
 
+interface ScreenConfig {
+  name: string;
+  options: {
+    title?: string;
+    tabBarShowLabel?: boolean;
+    tabBarIcon: ({ color, focused }: { color: string; focused: boolean }) => JSX.Element;
+    tabBarButton?: (props: any) => JSX.Element;
+  };
+}
+
 const Footer:FC<FooterProps> = ({ onHomePress }) => {
   const theme = useTheme();
+
+  const screens: ScreenConfig[] = [
+    {
+      name: 'drawer/index',
+      options: {
+        tabBarShowLabel: false,
+        tabBarIcon: ({ color, focused }) => (
+          <TabBarIcon name={focused ? 'menu' : 'menu-outline'} color={color} />
+        ),
+        tabBarButton: (props) => <TouchableOpacity {...props} onPress={onHomePress} />
+      }
+    },
+    {
+      name: 'index',
+      options: {
+        title: '任務',
+        tabBarIcon: ({ color, focused }) => (
+          <TabBarIcon name={focused ? 'document' : 'document-outline'} color={color} />
+        )
+      }
+    },
+    {
+      name: 'calendar/index',
+      options: {
+        title: '日曆',
+        tabBarIcon: ({ color, focused }) => (
+          <TabBarIcon name={focused ? 'calendar' : 'calendar-outline'} color={color} />
+        )
+      }
+    },
+    {
+      name: 'person/index',
+      options: {
+        title: '我的',
+        tabBarIcon: ({ color, focused }) => (
+          <TabBarIcon name={focused ? 'person' : 'person-outline'} color={color} />
+        )
+      }
+    }
+  ];
 
   return (
     <>
@@ -27,46 +77,13 @@ const Footer:FC<FooterProps> = ({ onHomePress }) => {
           }
         })}
       >
-        <Tabs.Screen
-          name="drawer/index"
-          options={{
-            tabBarShowLabel: false, // 隱藏標題
-            tabBarIcon: ({ color, focused }) => (
-              <TabBarIcon name={focused ? 'menu' : 'menu-outline'} color={color} />
-            ),
-            tabBarButton: (props) => (
-              <TouchableOpacity {...props} onPress={onHomePress} />
-            ), // 不執行路由跳轉
-          }}
-        />
-        {/* 其他 Tabs.Screen 保持不變 */}
-        <Tabs.Screen
-          name="index"
-          options={{
-            title: '任務',
-            tabBarIcon: ({ color, focused }) => (
-              <TabBarIcon name={focused ? 'document' : 'document-outline'} color={color} />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="calendar/index"
-          options={{
-            title: '日曆',
-            tabBarIcon: ({ color, focused }) => (
-              <TabBarIcon name={focused ? 'calendar' : 'calendar-outline'} color={color} />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="person/index"
-          options={{
-            title: '我的',
-            tabBarIcon: ({ color, focused }) => (
-              <TabBarIcon name={focused ? 'person' : 'person-outline'} color={color} />
-            ),
-          }}
-        />
+        {screens.map((screen) => (
+          <Tabs.Screen
+            key={screen.name}
+            name={screen.name}
+            options={screen.options}
+          />
+        ))}
       </Tabs>
     </>
   );

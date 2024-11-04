@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useRef } from 'react';
 import { View, Text, Animated, TouchableWithoutFeedback, Dimensions, Easing } from 'react-native';
-import { Link } from 'expo-router';
+import { Href, Link } from 'expo-router';
 import { useSidebarStyles } from './styles/_styles';
 
 interface SidebarProps {
@@ -8,9 +8,25 @@ interface SidebarProps {
   onClose: () => void;
 }
 
+interface LinkTypes {
+  name: string;
+  href: Href;
+}
+
 const Sidebar:FC<SidebarProps> = ({ isOpen, onClose }) => {
   const slideAnim = useRef(new Animated.Value(-Dimensions.get('window').width)).current;
   const styles = useSidebarStyles();
+
+  const linkList:LinkTypes[] = [
+    { name: '主題色', href: '/(other)/theme' },
+    { name: '連結2', href: '/' },
+    { name: '連結3', href: '/' },
+    { name: '連結4', href: '/' },
+    { name: '連結5', href: '/' },
+    { name: '連結6', href: '/' },
+    { name: '連結7', href: '/' },
+    { name: '連結8', href: '/' },
+  ]
 
   useEffect(() => {
     Animated.timing(slideAnim, {
@@ -30,32 +46,12 @@ const Sidebar:FC<SidebarProps> = ({ isOpen, onClose }) => {
       )}
       
       <Animated.View style={[styles.sidebar, { transform: [{ translateX: slideAnim }] }]}>
-        <Text style={styles.sidebarText}>Sidebar</Text>
         {/* 使用 Link 元件進行導航 */}
-        <Link href="/" style={styles.link}>
-          <Text>連結1</Text>
-        </Link>
-        <Link href="/" style={styles.link}>
-          <Text>連結2</Text>
-        </Link>
-        <Link href="/" style={styles.link}>
-          <Text>連結3</Text>
-        </Link>
-        <Link href="/" style={styles.link}>
-          <Text>連結4</Text>
-        </Link>
-        <Link href="/" style={styles.link}>
-          <Text>連結5</Text>
-        </Link>
-        <Link href="/" style={styles.link}>
-          <Text>連結6</Text>
-        </Link>
-        <Link href="/" style={styles.link}>
-          <Text>連結7</Text>
-        </Link>
-        <Link href="/" style={styles.link}>
-          <Text>連結8</Text>
-        </Link>
+        {linkList.map((link, index) => (
+          <Link key={index} href={link.href} style={styles.link}>
+            <Text>{link.name}</Text>
+          </Link>
+        ))}
       </Animated.View>
     </>
   );

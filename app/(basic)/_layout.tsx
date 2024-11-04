@@ -13,9 +13,6 @@ const Layout = () => {
 
   return (
     <>
-      {/* <View>
-        <Text>Header</Text>
-      </View> */}
       <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
       <Footer onHomePress={toggleSidebar}/>
     </>
