@@ -24,7 +24,9 @@ export const useSidebarStyles = () => {
       height: '100%',
       backgroundColor: theme.background?.val || '#FFFFFF', // 使用 Tamagui 的 $background，提供默认值
       zIndex: 2,
-      padding: 20,
+      paddingLeft: 20,
+      paddingRight: 20,
+      paddingTop: 40,
     },
     sidebarText: {
       fontSize: 24,
@@ -34,10 +36,11 @@ export const useSidebarStyles = () => {
       marginBottom: 10,
     },
     link: {
+      marginTop: 10,
       paddingVertical: 10,
       color: theme.color12?.val ?? '#FFF',
       fontSize: 16,
-      height: 60,
+      height: 50,
       display: 'flex',
       justifyContent: 'center',
     },

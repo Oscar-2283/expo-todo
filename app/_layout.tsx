@@ -2,7 +2,7 @@ import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
 import { useEffect } from 'react';
 import * as React from 'react';
-import { TamaguiProvider } from 'tamagui';
+import { TamaguiProvider, useTheme } from 'tamagui';
 import tamaguiConfig from '../tamagui.config';
 import useCommonStore from '@/store/common';
 import { StatusBar } from 'expo-status-bar';
@@ -40,11 +40,31 @@ export default function RootLayout() {
   return (
     <TamaguiProvider config={tamaguiConfig} defaultTheme={themeType}>
       <StatusBar style={themeType === 'light' ? 'auto' : 'light'}  />
-      <Stack>
-        <Stack.Screen name="(basic)" options={{ headerShown: false }} />
-        <Stack.Screen name="(other)/theme/index" options={{ headerShown: true, title: 'Theme' }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
+      <StackWithTheme />
     </TamaguiProvider>
+  );
+}
+
+
+const StackWithTheme = () => {
+  const theme = useTheme(); // Now accessible within Tamagui context
+
+  return (
+    <Stack>
+      <Stack.Screen name="(basic)" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="(other)/theme/index"
+        options={{
+          headerShown: true,
+          title: '主題',
+          headerStyle: { backgroundColor: theme.background?.val },
+          headerTintColor: theme.color?.val,
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      />
+      <Stack.Screen name="+not-found" />
+    </Stack>
   );
 }

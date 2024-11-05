@@ -1,36 +1,28 @@
-import React from 'react';
-import { ScrollView, Button, View, Text } from 'react-native';
-import { useThemeColor } from '@/hooks/useThemeColor';
 import useCommonStore from '@/store/common';
-import { Colors } from '@/constants/Colors';
+import React, { useState } from 'react';
+import { ScrollView, TouchableOpacity, View, Text } from 'react-native';
+import { useTheme } from 'tamagui';
 
 const GridScreen = () => {
-  const setThemeType = useCommonStore((state) => state.setThemeType);
-  const backgroundColor = useThemeColor({}, 'background');
-  const textColor = useThemeColor({}, 'text');
+  const { themeType, setThemeType } = useCommonStore();
+  const [currentTheme, setCurrentTheme] = useState('light'); // 初始設置為 'light'
+  const themeKeys = ['light', 'dark', 'light_accent', 'dark_accent'] as const;
 
-  const switchTheme = (theme: keyof typeof Colors) => {
-    setThemeType(theme);
+  const switchTheme = (theme: 'dark' | 'light' | 'light_accent' | 'dark_accent') => {
+    setThemeType(theme); // 更新當前主題
   };
 
+  const theme = useTheme(); // 獲取當前主題
+
   return (
-    <ScrollView contentContainerStyle={{ padding: 16, backgroundColor }}>
-      <Button title="Switch to Light Theme" onPress={() => switchTheme('light')} />
-      <Button title="Switch to Dark Theme" onPress={() => switchTheme('dark')} />
-      
-      <View
-        style={{
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          justifyContent: 'space-between',
-          marginTop: 16,
-        }}
-      >
-        {[backgroundColor, textColor, backgroundColor, textColor].map((color, index) => (
-          <View
-            key={index}
+    <ScrollView contentContainerStyle={{ padding: 16 }} style={{backgroundColor: theme.background?.val}}>
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between'}}>
+        {themeKeys.map((themeKey) => (
+          <TouchableOpacity
+            key={themeKey}
+            onPress={() => switchTheme(themeKey)}
             style={{
-              backgroundColor: color,
+              backgroundColor: theme.background?.val || 'white', // 使用當前主題背景色
               width: '30%',
               aspectRatio: 1,
               marginBottom: 16,
@@ -39,8 +31,10 @@ const GridScreen = () => {
               borderRadius: 8,
             }}
           >
-            <Text style={{ color: textColor, fontWeight: 'bold' }}>Color {index + 1}</Text>
-          </View>
+            <Text style={{ color: theme.color?.val || 'black', fontWeight: 'bold' }}>
+              {themeKey.charAt(0).toUpperCase() + themeKey.slice(1)} Theme
+            </Text>
+          </TouchableOpacity>
         ))}
       </View>
     </ScrollView>
