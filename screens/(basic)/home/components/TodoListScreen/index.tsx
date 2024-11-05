@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState, createElement } from 'react';
 import { View, XStack, YStack, Text, Checkbox } from 'tamagui';
 import { Expand, Check as CheckIcon, Flag } from '@tamagui/lucide-icons';
 import { Pressable, Animated } from 'react-native';
@@ -10,13 +10,18 @@ import {
 import useTodoStore from '@/store/todo';
 import EditTodoModal from '../EditTodoModal';
 import useFormattedData from '@/screens/(basic)/home/hooks/useFormattedData';
-import Popup from '@/components/Popup';
+import FlagPopup from './components/FlagPopup';
+import FlagComponent from './components/FlagComponent';
 
 const TodoListScreen: FC = () => {
-  const { TodoList, RemoveTodo, checkedTodo } = useTodoStore();
+  const { TodoList, RemoveTodo, checkedTodo, setFlag } = useTodoStore();
   const [openEditModal, setOpenEditModal] = useState(false);
   const [todoId, setTodoId] = useState<string | null>(null);
 
+  const [popupFlag, setPopupFlag] = useState<{ type: string; color: string }>({
+    type: '',
+    color: '',
+  });
   const groupedTodos = useFormattedData(TodoList);
   const { past, present, future } = groupedTodos;
 
@@ -29,18 +34,31 @@ const TodoListScreen: FC = () => {
     [key: string]: boolean;
   }>({});
 
+  // 控制 FlagPopup 的顯示
   const togglePopup = (id: string) => {
+    setTodoId(id);
     setPopupVisibility((prev) => ({
       ...prev,
       [id]: !prev[id],
     }));
   };
 
-  const handleCheck = (checked: boolean, id: string) => {
-    checkedTodo(id, checked);
-    console.log('handleCheck', id, checked);
+  // 設定 Flag
+  const handlePopupFlag = (flag: { type: string; color: string }) => {
+    if (todoId) {
+      setFlag(todoId, flag);
+    }
   };
 
+  useEffect(() => {
+    handlePopupFlag(popupFlag);
+  }, [popupFlag]);
+
+  const handleCheck = (checked: boolean, id: string) => {
+    checkedTodo(id, checked);
+  };
+
+  // 往右滑動刪除按鈕
   const renderRightActions = (
     id: string,
     progress: Animated.AnimatedInterpolation<number>
@@ -66,20 +84,22 @@ const TodoListScreen: FC = () => {
     );
   };
 
+  // 渲染不同時間區段的待辦事項
   const renderTodoSection = (title: string, items: typeof past) =>
     items.length > 0 && (
       <>
-        <Text fontSize="$5" fontWeight={600}>
+        <Text fontSize="$5" fontWeight={600} marginBottom="$2">
           {title}
         </Text>
         {items.map((item) => (
-          <View key={item.id} position="relative">
+          <View key={item.id} >
             <Swipeable
               renderRightActions={(progress) =>
                 renderRightActions(item.id, progress)
               }
               overshootRight={false}
               friction={2}
+              
             >
               <XStack
                 gap="$2"
@@ -123,21 +143,27 @@ const TodoListScreen: FC = () => {
                   </View>
                   <View marginLeft="auto" position="relative">
                     <Pressable onPress={() => togglePopup(item.id)}>
-                      <Flag size="$1" />
+                      {item.flag ? (
+                        FlagComponent(item.flag.type, item.flag.color)
+                      ) : (
+                        <Flag size="$1" />
+                      )}
                     </Pressable>
                   </View>
                 </XStack>
               </XStack>
             </Swipeable>
             {popupVisibility[item.id] && (
-              <Popup
-                key={`${item.id}-popup`} 
+              <FlagPopup
+                key={`${item.id}-popup`}
+                id={item.id}
                 visible={popupVisibility[item.id]}
+                onClose={() => togglePopup(item.id)}
                 right={0}
-                transform={[{ translateY: 10 }]}
-              >
-                <Text>555</Text>
-              </Popup>
+                transform={[{ translateY: -10 }]}
+                setTodoId={setTodoId}
+                onSetPopupFlag={setPopupFlag}
+              ></FlagPopup>
             )}
           </View>
         ))}
@@ -150,9 +176,15 @@ const TodoListScreen: FC = () => {
         <View flex={1} padding="$3">
           {TodoList.length > 0 ? (
             <YStack gap="$2">
-              {renderTodoSection('未來', future)}
-              {renderTodoSection('今天', present)}
-              {renderTodoSection('過去', past)}
+              <View position="relative" zIndex={3}>
+                {renderTodoSection('未來', future)}
+              </View>
+              <View position="relative" zIndex={2}>
+                {renderTodoSection('今天', present)}
+              </View>
+              <View position="relative" zIndex={1}>
+                {renderTodoSection('過去', past)}
+              </View>
             </YStack>
           ) : (
             <View flex={1} justifyContent="center" alignItems="center">

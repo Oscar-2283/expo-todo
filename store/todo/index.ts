@@ -7,6 +7,7 @@ interface TodoStore {
   RemoveTodo: (id: string) => void;
   UpdatedTodo: (id: string, todo: TodoItem) => void;
   checkedTodo: (id: string, checked: boolean) => void;
+  setFlag: (id: string, flag: { type: string; color: string }) => void;
 }
 
 const useTodoStore = create<TodoStore>((set) => ({
@@ -27,6 +28,13 @@ const useTodoStore = create<TodoStore>((set) => ({
         item.id === id ? { ...item, checked } : item
       ),
     })),
+  setFlag: (id: string, flag: { type: string; color: string }) => {
+    set((state) => ({
+      TodoList: state.TodoList.map((item) =>
+        item.id === id ? { ...item, flag } : item
+      ),
+    }));
+  },
 }));
 
 export default useTodoStore;

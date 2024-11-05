@@ -13,19 +13,23 @@ export interface TodoItem {
   notes?: string;
   tag?: string[];
   checked: boolean;
+  flag?: {
+    type: string;
+    color: string;
+  };
 }
 
 export interface TodoSubTask {
   id: string;
   title: string;
   description?: string;
-  dueDate: string;
-  time: string;
-  reminder: {
-    time: string;
-  };
-  repeat: string ;
-  attachments?: string[];
-  notes?: string;
+  // dueDate: string;
+  // time: string;
+  // reminder: {
+  //   time: string;
+  // };
+  // repeat: string ;
+  // attachments?: string[];
+  // notes?: string;
   checked?: boolean;
 }

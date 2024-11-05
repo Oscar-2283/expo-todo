@@ -21,7 +21,7 @@ const Popup: FC<PopupProps> = ({ children, visible, ...props }) => {
         shadowOpacity={0.25}
         shadowRadius={3.84}
         shadowColor="$color10"
-        zIndex={100}
+        zIndex={10000000}
         {...props}
       >
         {children}
