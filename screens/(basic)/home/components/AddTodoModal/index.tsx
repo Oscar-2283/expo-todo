@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { Alert } from 'react-native';
 import SharedModal from '@/components/SharedModal';
-import ModalInput from '@/components/Form/ModalInput';
+import FormInput from '@/components/Form/FormInput';
 import FormSelect from '@/components/Form/FormSelect';
 import {
   YStack,
@@ -132,7 +132,7 @@ const AddTodoModal: FC<AddModalProps> = ({ modalVisible, setModalVisible }) => {
           <Text>日期: {selectedDate ?? '尚未選擇'}</Text>
         </View>
         <ModalFormRow label="名稱" icon={<CheckCircle size="$1" />}>
-          <ModalInput
+          <FormInput
             placeholder="請輸入名稱"
             value={title}
             onChangeText={(value: string) => setTitle(value)}

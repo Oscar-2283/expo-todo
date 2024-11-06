@@ -14,7 +14,7 @@ import FlagPopup from './components/FlagPopup';
 import FlagComponent from './components/FlagComponent';
 
 const TodoListScreen: FC = () => {
-  const { TodoList, RemoveTodo, checkedTodo, setFlag } = useTodoStore();
+  const { filteredTodoList, RemoveTodo, checkedTodo, setFlag } = useTodoStore();
   const [openEditModal, setOpenEditModal] = useState(false);
   const [todoId, setTodoId] = useState<string | null>(null);
 
@@ -22,7 +22,7 @@ const TodoListScreen: FC = () => {
     type: '',
     color: '',
   });
-  const groupedTodos = useFormattedData(TodoList);
+  const groupedTodos = useFormattedData(filteredTodoList);
   const { past, present, future } = groupedTodos;
 
   const handleEdit = (id: string) => {
@@ -92,8 +92,12 @@ const TodoListScreen: FC = () => {
           {title}
         </Text>
         <YStack gap="$3">
-          {items.map((item) => (
-            <View key={item.id}>
+          {items.map((item, index) => (
+            <View
+              key={item.id}
+              position="relative"
+              zIndex={items.length - index}
+            >
               <Swipeable
                 renderRightActions={(progress) =>
                   renderRightActions(item.id, progress)
@@ -144,7 +148,7 @@ const TodoListScreen: FC = () => {
                         </Text>
                       </Pressable>
                     </View>
-                    <View marginLeft="auto" position="relative">
+                    <View marginLeft="auto">
                       <Pressable onPress={() => togglePopup(item.id)}>
                         {item.flag ? (
                           FlagComponent(item.flag.type, item.flag.color)
@@ -166,7 +170,7 @@ const TodoListScreen: FC = () => {
                   transform={[{ translateY: -10 }]}
                   setTodoId={setTodoId}
                   onSetPopupFlag={setPopupFlag}
-                ></FlagPopup>
+                />
               )}
             </View>
           ))}
@@ -178,7 +182,7 @@ const TodoListScreen: FC = () => {
     <>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <View flex={1} padding="$3">
-          {TodoList.length > 0 ? (
+          {filteredTodoList.length > 0 ? (
             <YStack gap="$2">
               <View position="relative" zIndex={3}>
                 {renderTodoSection('未來', future)}

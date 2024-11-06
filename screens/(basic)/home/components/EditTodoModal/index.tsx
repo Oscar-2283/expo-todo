@@ -1,7 +1,7 @@
 import { FC, useState, useEffect } from 'react';
 import { Alert } from 'react-native';
 import SharedModal from '@/components/SharedModal';
-import ModalInput from '@/components/Form/ModalInput';
+import FormInput from '@/components/Form/FormInput';
 import FormSelect from '@/components/Form/FormSelect';
 import {
   YStack,
@@ -165,7 +165,7 @@ const EditTodoModal: FC<EditModalProps> = ({
         </View>
 
         <ModalFormRow label="名稱" icon={<CheckCircle size="$1" />}>
-          <ModalInput
+          <FormInput
             placeholder="請輸入名稱"
             value={title}
             onChangeText={setTitle}

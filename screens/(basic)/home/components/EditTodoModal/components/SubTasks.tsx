@@ -8,7 +8,7 @@ import {
   X,
 } from '@tamagui/lucide-icons';
 import { TodoSubTask } from '@/types/response/todoList';
-import ModalInput from '@/components/Form/ModalInput';
+import FormInput from '@/components/Form/FormInput';
 
 interface SubTasksProps {
   subTasks: TodoSubTask[];
@@ -81,7 +81,7 @@ const SubTasks: FC<SubTasksProps> = ({ subTasks, onUpdateSubTasks }) => {
 
           {editingId === task.id ? (
             <>
-              <ModalInput
+              <FormInput
                 value={editText}
                 onChangeText={setEditText}
                 autoFocus
