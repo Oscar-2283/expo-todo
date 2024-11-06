@@ -42,7 +42,8 @@ const SharedModal: FC<SharedModalProps> = ({
         >
           <ScrollView
             style={{ width: '100%' }}
-            
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
           >
             {children}
           </ScrollView>

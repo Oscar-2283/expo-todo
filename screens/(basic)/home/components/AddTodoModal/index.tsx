@@ -21,6 +21,7 @@ import CalendarScreen from '../CalendarScreen';
 import ModalFormRow from '@/components/Form/ModalFormRow';
 import dayjs from 'dayjs';
 import useTodoStore from '@/store/todo';
+import { Categories, CategoryEnum, RepeatEnum, RepeatOptions } from '@/constants';
 
 interface AddModalProps {
   modalVisible: boolean;
@@ -36,7 +37,8 @@ const AddTodoModal: FC<AddModalProps> = ({ modalVisible, setModalVisible }) => {
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
   const [isReminderTimePickerVisible, setReminderTimePickerVisibility] =
     useState(false);
-  const [selectedVal, setSelectedVal] = useState('不重複');
+  const [selectedRepeat, setSelectedRepeat] = useState(RepeatEnum.NONE);
+  const [selectedCategory, setSelectedCategory] = useState(CategoryEnum.WORK);
 
   const handleConfirm = (selectedTime: Date, category: string) => {
     if (category === 'time') {
@@ -69,7 +71,8 @@ const AddTodoModal: FC<AddModalProps> = ({ modalVisible, setModalVisible }) => {
     setSelectedDate(null);
     setTime(null);
     setReminderTime(null);
-    setSelectedVal('不重複');
+    setSelectedRepeat(RepeatEnum.NONE);
+    setSelectedCategory(CategoryEnum.WORK); 
   };
 
   const onSubmit = () => {
@@ -79,7 +82,7 @@ const AddTodoModal: FC<AddModalProps> = ({ modalVisible, setModalVisible }) => {
       return;
     }
     if (!selectedDate) {
-      Alert.alert('請選擇��期');
+      Alert.alert('請選擇日期');
       return;
     }
     if (!time) {
@@ -93,10 +96,11 @@ const AddTodoModal: FC<AddModalProps> = ({ modalVisible, setModalVisible }) => {
 
     const formData = {
       id: Math.random().toString(36).substring(7),
+      category: selectedCategory,
       dueDate: selectedDate,
       time: dayjs(time).format('HH:mm A'),
       reminder: { time: dayjs(reminderTime).format('HH:mm A') },
-      repeat: selectedVal as any,
+      repeat: selectedRepeat as any,
       title: title,
       description: '',
       subTasks: [],
@@ -149,17 +153,24 @@ const AddTodoModal: FC<AddModalProps> = ({ modalVisible, setModalVisible }) => {
         <ModalFormRow label="重複" icon={<Repeat2 size="$1" />}>
           <FormSelect
             placeholer="重複"
-            selectedVal={selectedVal}
-            options={[
-              { label: '不重複', value: '不重複' },
-              { label: '每天', value: '每天' },
-              { label: '每週', value: '每週' },
-              { label: '每月', value: '每月' },
-              { label: '每年', value: '每年' },
-            ]}
-            onSelect={(value) => setSelectedVal(value)}
-          ></FormSelect>
+            selectedVal={selectedRepeat}
+            options={RepeatOptions}
+            onSelect={(value) => setSelectedRepeat(value)}
+          />
         </ModalFormRow>
+        <ModalFormRow label="類別" icon={<CheckCircle size="$1" />}>
+          <FormSelect
+            placeholer="類別"
+            selectedVal={selectedCategory}
+            options={Categories}
+            onSelect={(value) => setSelectedCategory(value)}
+          />
+        </ModalFormRow>
+
+        <Separator
+          alignSelf="stretch"
+          marginVertical="$2"
+        />
         <DateTimePickerModal
           isVisible={isTimePickerVisible}
           mode="time"

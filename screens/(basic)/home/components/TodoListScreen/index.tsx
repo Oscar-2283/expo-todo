@@ -1,4 +1,4 @@
-import { FC, useEffect, useState, createElement } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { View, XStack, YStack, Text, Checkbox } from 'tamagui';
 import { Expand, Check as CheckIcon, Flag } from '@tamagui/lucide-icons';
 import { Pressable, Animated } from 'react-native';
@@ -91,82 +91,83 @@ const TodoListScreen: FC = () => {
         <Text fontSize="$5" fontWeight={600} marginBottom="$2">
           {title}
         </Text>
-        {items.map((item) => (
-          <View key={item.id} >
-            <Swipeable
-              renderRightActions={(progress) =>
-                renderRightActions(item.id, progress)
-              }
-              overshootRight={false}
-              friction={2}
-              
-            >
-              <XStack
-                gap="$2"
-                alignItems="center"
-                padding="$3"
-                backgroundColor="$color2"
-                borderRadius="$2"
-                overflow="unset"
+        <YStack gap="$3">
+          {items.map((item) => (
+            <View key={item.id}>
+              <Swipeable
+                renderRightActions={(progress) =>
+                  renderRightActions(item.id, progress)
+                }
+                overshootRight={false}
+                friction={2}
               >
-                <XStack flex={1} alignItems="center" gap="$3">
-                  <Checkbox
-                    size="$4"
-                    checked={item.checked}
-                    onCheckedChange={(checked: boolean) =>
-                      handleCheck(checked, item.id)
-                    }
-                  >
-                    <Checkbox.Indicator>
-                      <CheckIcon />
-                    </Checkbox.Indicator>
-                  </Checkbox>
-                  <View>
-                    <Pressable onPress={() => handleEdit(item.id)}>
-                      <Text
-                        textDecorationLine={
-                          item.checked ? 'line-through' : 'none'
-                        }
-                        opacity={item.checked ? 0.5 : 1}
-                      >
-                        {item.dueDate}
-                      </Text>
-                      <Text
-                        textDecorationLine={
-                          item.checked ? 'line-through' : 'none'
-                        }
-                        opacity={item.checked ? 0.5 : 1}
-                      >
-                        {item.title}
-                      </Text>
-                    </Pressable>
-                  </View>
-                  <View marginLeft="auto" position="relative">
-                    <Pressable onPress={() => togglePopup(item.id)}>
-                      {item.flag ? (
-                        FlagComponent(item.flag.type, item.flag.color)
-                      ) : (
-                        <Flag size="$1" />
-                      )}
-                    </Pressable>
-                  </View>
+                <XStack
+                  gap="$2"
+                  alignItems="center"
+                  padding="$3"
+                  backgroundColor="$color2"
+                  borderRadius="$2"
+                  overflow="unset"
+                >
+                  <XStack flex={1} alignItems="center" gap="$3">
+                    <Checkbox
+                      size="$4"
+                      checked={item.checked}
+                      onCheckedChange={(checked: boolean) =>
+                        handleCheck(checked, item.id)
+                      }
+                    >
+                      <Checkbox.Indicator>
+                        <CheckIcon />
+                      </Checkbox.Indicator>
+                    </Checkbox>
+                    <View>
+                      <Pressable onPress={() => handleEdit(item.id)}>
+                        <Text
+                          textDecorationLine={
+                            item.checked ? 'line-through' : 'none'
+                          }
+                          opacity={item.checked ? 0.5 : 1}
+                        >
+                          {item.dueDate}
+                        </Text>
+                        <Text
+                          textDecorationLine={
+                            item.checked ? 'line-through' : 'none'
+                          }
+                          opacity={item.checked ? 0.5 : 1}
+                        >
+                          {item.title}
+                        </Text>
+                      </Pressable>
+                    </View>
+                    <View marginLeft="auto" position="relative">
+                      <Pressable onPress={() => togglePopup(item.id)}>
+                        {item.flag ? (
+                          FlagComponent(item.flag.type, item.flag.color)
+                        ) : (
+                          <Flag size="$1" />
+                        )}
+                      </Pressable>
+                    </View>
+                  </XStack>
                 </XStack>
-              </XStack>
-            </Swipeable>
-            {popupVisibility[item.id] && (
-              <FlagPopup
-                key={`${item.id}-popup`}
-                id={item.id}
-                visible={popupVisibility[item.id]}
-                onClose={() => togglePopup(item.id)}
-                right={0}
-                transform={[{ translateY: -10 }]}
-                setTodoId={setTodoId}
-                onSetPopupFlag={setPopupFlag}
-              ></FlagPopup>
-            )}
-          </View>
-        ))}
+              </Swipeable>
+              {popupVisibility[item.id] && (
+                <FlagPopup
+                  key={`${item.id}-popup`}
+                  id={item.id}
+                  visible={popupVisibility[item.id]}
+                  onClose={() => togglePopup(item.id)}
+                  right={0}
+                  transform={[{ translateY: -10 }]}
+                  setTodoId={setTodoId}
+                  onSetPopupFlag={setPopupFlag}
+                ></FlagPopup>
+              )}
+            </View>
+          ))}
+        </YStack>
       </>
     );
 
@@ -196,6 +197,7 @@ const TodoListScreen: FC = () => {
       <EditTodoModal
         modalVisible={openEditModal}
         setModalVisible={setOpenEditModal}
+        todoId={todoId!}
       />
     </>
   );

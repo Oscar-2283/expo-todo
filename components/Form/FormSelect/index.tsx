@@ -10,7 +10,8 @@ import {
 
 interface ModalSelectProps extends ButtonProps {
   placeholer?: string;
-  selectedVal: string;
+  selectedVal: any;
+  label?: string; // 手動傳入的 label，優先使用
   onSelect: (item: any) => void;
   options: Array<{ label: string; value: any }>;
   selectedValue?: any;
@@ -20,6 +21,7 @@ interface ModalSelectProps extends ButtonProps {
 const ModalSelect: React.FC<ModalSelectProps> = ({
   placeholer = '請選擇',
   selectedVal,
+  label,
   onSelect,
   options,
   selectedValue,
@@ -55,9 +57,17 @@ const ModalSelect: React.FC<ModalSelectProps> = ({
     </YStack>
   );
 
+  // 自動找到對應的 label
+  const displayLabel = label || options.find(opt => opt.value === selectedVal)?.label || placeholer;
+
   return (
     <>
-      <Button onPress={() => {setSelectedVisible(true)}} {...props} >{selectedVal ? selectedVal : placeholer}</Button>
+      <Button 
+        onPress={() => {setSelectedVisible(true)}} 
+        {...props}
+      >
+        {displayLabel}
+      </Button>
       <Modal
         visible={selectedVisible}
         transparent
