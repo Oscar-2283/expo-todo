@@ -124,12 +124,15 @@ const TodoListScreen: FC = () => {
                     <View>
                       <Pressable onPress={() => handleEdit(item.id)}>
                         <Text
+                          fontSize={18}
+                          fontWeight={700}
                           textDecorationLine={
                             item.checked ? 'line-through' : 'none'
                           }
                           opacity={item.checked ? 0.5 : 1}
+                          marginBottom="$1"
                         >
-                          {item.dueDate}
+                          {item.title}
                         </Text>
                         <Text
                           textDecorationLine={
@@ -137,7 +140,7 @@ const TodoListScreen: FC = () => {
                           }
                           opacity={item.checked ? 0.5 : 1}
                         >
-                          {item.title}
+                          {item.dueDate}
                         </Text>
                       </Pressable>
                     </View>
