@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Alert } from 'react-native';
 import SharedModal from '@/components/SharedModal';
 import FormInput from '@/components/Form/FormInput';
@@ -66,9 +66,15 @@ const AddTodoModal: FC<AddModalProps> = ({ modalVisible, setModalVisible }) => {
     setReminderTimePickerVisibility(false);
   };
 
+  useEffect(() => {
+    if (!modalVisible) {
+      resetData();
+    }
+  }, [modalVisible]);
+
   const resetData = () => {
     setTitle('');
-    setSelectedDate(null);
+    setSelectedDate(dayjs().format('YYYY-MM-DD'));
     setTime(null);
     setReminderTime(null);
     setSelectedRepeat(RepeatEnum.NONE);

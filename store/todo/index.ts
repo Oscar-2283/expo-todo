@@ -19,32 +19,35 @@ const useTodoStore = create<TodoStore>((set) => ({
   filterText: '',
   filteredTodoList: FakeTodoData,
   AddTodo: (todo: TodoItem) =>
-    set((state) => ({ TodoList: [...state.TodoList, todo] })),
+    set((state) => ({ 
+      filteredTodoList: [...state.filteredTodoList, todo] 
+    })),
   RemoveTodo: (id: string) =>
     set((state) => ({
-      TodoList: state.TodoList.filter((todo) => todo.id !== id),
+      filteredTodoList: state.filteredTodoList.filter((todo) => todo.id !== id),
     })),
   UpdatedTodo: (id: string, todo: TodoItem) =>
     set((state) => ({
-      TodoList: state.TodoList.map((item) => (item.id === id ? todo : item)),
+      filteredTodoList: state.filteredTodoList.map((item) => 
+        item.id === id ? todo : item
+      ),
     })),
   checkedTodo: (id: string, checked: boolean) =>
     set((state) => ({
-      TodoList: state.TodoList.map((item) =>
+      filteredTodoList: state.filteredTodoList.map((item) =>
         item.id === id ? { ...item, checked } : item
       ),
     })),
-  setFlag: (id: string, flag: { type: string; color: string }) => {
+  setFlag: (id: string, flag: { type: string; color: string }) =>
     set((state) => ({
-      TodoList: state.TodoList.map((item) =>
+      filteredTodoList: state.filteredTodoList.map((item) =>
         item.id === id ? { ...item, flag } : item
       ),
-    }));
-  },
+    })),
   setFilterText: (text: string) =>
     set((state) => ({
       filterText: text,
-      filteredTodoList: state.TodoList.filter((todo) =>
+      filteredTodoList: state.filteredTodoList.filter((todo) =>
         todo.title.toLowerCase().includes(text.toLowerCase())
       ),
     })),

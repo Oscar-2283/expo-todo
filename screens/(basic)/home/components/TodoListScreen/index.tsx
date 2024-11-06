@@ -180,7 +180,7 @@ const TodoListScreen: FC = () => {
 
   return (
     <>
-      <GestureHandlerRootView style={{ flex: 1 }}>
+      <GestureHandlerRootView style={{ flex: 1, paddingBottom: 80 }}>
         <View flex={1} padding="$3">
           {filteredTodoList.length > 0 ? (
             <YStack gap="$2">

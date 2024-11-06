@@ -1,11 +1,5 @@
 import { useState } from 'react';
-import {
-  Button,
-  View,
-  ScrollView,
-  XStack,
-  Text,
-} from 'tamagui';
+import { Button, View, ScrollView, XStack, Text } from 'tamagui';
 import FormInput from '@/components/Form/FormInput';
 import { Plus, EllipsisVertical, Search } from '@tamagui/lucide-icons';
 import AddTodoModal from '@/screens/(basic)/home/components/AddTodoModal';
@@ -54,8 +48,12 @@ export default function HomeScreen() {
             <EllipsisVertical size="$1" />
           </Pressable>
         </XStack>
-
-        <TodoListScreen />
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+        >
+          <TodoListScreen />
+        </ScrollView>
       </View>
       <AddTodoModal
         modalVisible={modalVisible}
@@ -74,7 +72,7 @@ export default function HomeScreen() {
         gap="$2"
       >
         <FormInput
-          style={{ flex: 1, backgroundColor: theme.color2?.val, }}
+          style={{ flex: 1, backgroundColor: theme.color2?.val }}
           placeholder="搜尋待辦事項..."
           onChangeText={setFilterText}
         />
