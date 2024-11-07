@@ -62,6 +62,9 @@ const StackWithTheme = () => {
           headerTitleStyle: {
             fontWeight: 'bold',
           },
+          // headerBackTitle: '首頁',
+          headerBackTitleVisible: false,
+          // headerBackVisible: false,
         }}
       />
       <Stack.Screen name="+not-found" />

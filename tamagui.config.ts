@@ -10,7 +10,7 @@ const bodyFont = createInterFont();
 const config = createTamagui({
   tokens,
   themes,
-  defaultTheme: 'light_accent',
+  defaultTheme: 'dark',
   themeClassNameOnRoot: false,
   fonts: {
     heading: headingFont,

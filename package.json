@@ -45,6 +45,7 @@
     "react-native-screens": "3.31.1",
     "react-native-web": "~0.19.10",
     "tamagui": "^1.115.5",
+    "victory-native": "^41.9.0",
     "zustand": "^5.0.0"
   },
   "devDependencies": {
