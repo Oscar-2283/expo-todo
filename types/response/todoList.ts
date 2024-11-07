@@ -2,7 +2,7 @@ export interface TodoItem {
   id: string;
   title: string;
   description?: string;
-  category: string;
+  category?: string;
   subTasks?: TodoSubTask[]; // 子任務使用 TodoSubTask
   dueDate: string; // 預定日期
   time: string;

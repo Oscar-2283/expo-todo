@@ -196,7 +196,10 @@ const TodoListScreen: FC = () => {
             </YStack>
           ) : (
             <View flex={1} justifyContent="center" alignItems="center">
-              <Expand size="$10" />
+              <Expand size="$10" color="$color10" />
+              <Text color="$color10" fontSize="$6" marginTop="$4">
+                沒有待辦事項
+              </Text>
             </View>
           )}
         </View>

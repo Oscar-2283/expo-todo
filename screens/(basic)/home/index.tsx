@@ -7,6 +7,7 @@ import TodoListScreen from '@/screens/(basic)/home/components/TodoListScreen';
 import { Pressable } from 'react-native';
 import useTodoStore from '@/store/todo';
 import { useTheme } from 'tamagui';
+import CategoryFilterButtons from './components/CategoryFilterButtons';
 
 export default function HomeScreen() {
   const theme = useTheme();
@@ -17,29 +18,7 @@ export default function HomeScreen() {
     <>
       <View paddingTop="$10" flex={1} backgroundColor="$background">
         <XStack paddingHorizontal="$3" gap="$4">
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            flex={1}
-          >
-            <XStack gap="$3">
-              <Button>
-                <Text>2283</Text>
-              </Button>
-              <Button>
-                <Text>2283</Text>
-              </Button>
-              <Button>
-                <Text>2283</Text>
-              </Button>
-              <Button>
-                <Text>2283</Text>
-              </Button>
-              <Button>
-                <Text>2283</Text>
-              </Button>
-            </XStack>
-          </ScrollView>
+          <CategoryFilterButtons />
           <Pressable
             style={{
               justifyContent: 'center',
@@ -51,6 +30,7 @@ export default function HomeScreen() {
         <ScrollView
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ flex: 1 }} 
         >
           <TodoListScreen />
         </ScrollView>
