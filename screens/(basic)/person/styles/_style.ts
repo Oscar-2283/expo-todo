@@ -60,7 +60,7 @@ const usePersonStyles = () => {
       color: theme.color?.val,
     },
     chartContainer: {
-      height: 200,
+      height: 220,
       borderColor: theme.color3?.val,
       borderWidth: 1,
       borderRadius: 8,

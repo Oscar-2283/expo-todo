@@ -4,11 +4,12 @@ import { ScrollView, TouchableOpacity, View, Text } from 'react-native';
 import { useTheme } from 'tamagui';
 import useThemeStyles from './styles/_styles';
 import { Check } from '@tamagui/lucide-icons'
+import tamaguiConfig from '@/tamagui.config';
 
 const GridScreen = () => {
   const { themeType, setThemeType } = useCommonStore();
   const styles = useThemeStyles();
-  const [currentTheme, setCurrentTheme] = useState('light'); // 初始設置為 'light'
+  const { themes } = tamaguiConfig;
   const themeKeys = [
     { type: 'light',
       name: '亮色'
@@ -30,6 +31,21 @@ const GridScreen = () => {
 
   const theme = useTheme(); // 獲取當前主題
 
+  // 根據 themeType 動態選擇背景顏色
+  const themeBackgroundColors = {
+    light: themes.light.color2.val,
+    dark: themes.dark.color2.val,
+    light_accent: themes.light_accent.color2.val,
+    dark_accent: themes.dark_accent.color2.val,
+  };
+  // 根據 themeType 動態選擇文字顏色
+  const themeTextColors = {
+    light: themes.light.color.val,
+    dark: themes.dark.color.val,
+    light_accent: themes.light_accent.color.val,
+    dark_accent: themes.dark_accent.color.val,
+  };
+
   return (
     <ScrollView contentContainerStyle={{ padding: 16 }} style={styles.container}>
       <View style={styles.content}>
@@ -37,9 +53,12 @@ const GridScreen = () => {
           <TouchableOpacity
             key={index}
             onPress={() => switchTheme(themeKey.type)}
-            style={styles.colorBtn}
+            style={[
+              styles.colorBtn,
+              {backgroundColor: themeBackgroundColors[themeKey.type]},
+            ]}
           >
-            <Text style={styles.text}>
+            <Text style={[styles.text, { color: themeTextColors[themeKey.type] }]}>
               {themeKey.name}
             </Text>
             <Check

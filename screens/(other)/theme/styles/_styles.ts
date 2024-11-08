@@ -14,7 +14,6 @@ const useThemeStyles = () => {
       justifyContent: 'space-between'
     },
     colorBtn: {
-      backgroundColor: theme.$color2?.val, // 使用當前主題背景色
       width: '100%',
       height: 50,
       borderWidth: 1,
@@ -36,7 +35,6 @@ const useThemeStyles = () => {
       margin: 'auto',
       position: 'relative',
       textAlign: 'left',
-      color: theme.color?.val,
       fontWeight: 'bold',
       fontSize: 16,
       display: 'flex',
