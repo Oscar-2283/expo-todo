@@ -1,6 +1,14 @@
 import { FC, useEffect, useState } from 'react';
 import { View, XStack, YStack, Text, Checkbox } from 'tamagui';
-import { Expand, Check as CheckIcon, Flag } from '@tamagui/lucide-icons';
+import {
+  Expand,
+  Check as CheckIcon,
+  Flag,
+  Star,
+  StarFull,
+  Calendar,
+  Trash2,
+} from '@tamagui/lucide-icons';
 import { Pressable, Animated } from 'react-native';
 import {
   Swipeable,
@@ -58,7 +66,7 @@ const TodoListScreen: FC = () => {
     checkedTodo(id, checked);
   };
 
-  // 往右滑動刪除按鈕
+  // 往右滑動的按鈕
   const renderRightActions = (
     id: string,
     progress: Animated.AnimatedInterpolation<number>
@@ -69,17 +77,57 @@ const TodoListScreen: FC = () => {
     });
 
     return (
-      <Animated.View style={{ transform: [{ translateX: trans }] }}>
-        <View
-          onPress={() => RemoveTodo(id)}
-          backgroundColor="red"
-          padding="$2"
-          height="100%"
-          justifyContent="center"
-          alignContent="center"
-        >
-          <Text color="white">刪除</Text>
-        </View>
+      <Animated.View
+        style={{
+          transform: [{ translateX: trans }],
+          flexDirection: 'row',
+          width: 180, // 設定總寬度
+        }}
+      >
+        <Pressable onPress={() => console.log('加星號')} style={{ flex: 1 }}>
+          <View
+            backgroundColor="$color5"
+            padding="$2"
+            height="100%"
+            justifyContent="center"
+            alignItems="center"
+            gap="$2"
+          >
+            <Star size="$1" />
+            {/* <StarFull size="$2" /> */}
+            <Text color="white">加星號</Text>
+          </View>
+        </Pressable>
+
+        <Pressable onPress={() => console.log('日曆')} style={{ flex: 1 }}>
+          <View
+            backgroundColor="$color8"
+            padding="$2"
+            height="100%"
+            justifyContent="center"
+            alignItems="center"
+            gap="$2"
+          > 
+            <Calendar size="$1" />
+            <Text color="white">日曆</Text>
+          </View>
+        </Pressable>
+
+        <Pressable onPress={() => RemoveTodo(id)} style={{ flex: 1 }}>
+          <View
+            backgroundColor="#d93c3c"
+            padding="$2"
+            height="100%"
+            justifyContent="center"
+            alignItems="center"
+            borderTopRightRadius={10}
+            borderBottomRightRadius={10}
+            gap="$2"
+          >
+            <Trash2 size="$1" />
+            <Text color="white">刪除</Text>
+          </View>
+        </Pressable>
       </Animated.View>
     );
   };
@@ -103,6 +151,7 @@ const TodoListScreen: FC = () => {
                   renderRightActions(item.id, progress)
                 }
                 overshootRight={false}
+                rightThreshold={10}
                 friction={2}
               >
                 <XStack
@@ -110,7 +159,8 @@ const TodoListScreen: FC = () => {
                   alignItems="center"
                   padding="$3"
                   backgroundColor="$color2"
-                  borderRadius="$2"
+                  borderTopLeftRadius={10}
+                  borderBottomLeftRadius={10}
                   overflow="unset"
                 >
                   <XStack flex={1} alignItems="center" gap="$3">
