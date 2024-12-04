@@ -22,6 +22,8 @@ import ModalFormRow from '@/components/Form/ModalFormRow';
 import dayjs from 'dayjs';
 import useTodoStore from '@/store/todo';
 import { Categories, CategoryEnum, RepeatEnum, RepeatOptions } from '@/constants';
+import { TodoSubTask } from '@/types/response/todoList';
+import SubTasks from './components/SubTasks';
 
 interface AddModalProps {
   modalVisible: boolean;
@@ -39,6 +41,7 @@ const AddTodoModal: FC<AddModalProps> = ({ modalVisible, setModalVisible }) => {
     useState(false);
   const [selectedRepeat, setSelectedRepeat] = useState(RepeatEnum.NONE);
   const [selectedCategory, setSelectedCategory] = useState(CategoryEnum.WORK);
+  const [subTasks, setSubTasks] = useState<TodoSubTask[]>([]);
 
   const handleConfirm = (selectedTime: Date, category: string) => {
     if (category === 'time') {
@@ -79,24 +82,19 @@ const AddTodoModal: FC<AddModalProps> = ({ modalVisible, setModalVisible }) => {
     setReminderTime(null);
     setSelectedRepeat(RepeatEnum.NONE);
     setSelectedCategory(CategoryEnum.WORK); 
+    setSubTasks([]);
   };
 
   const onSubmit = () => {
     console.log('submit');
-    if (!title) {
-      Alert.alert('請輸入名稱');
+    if (!title || !selectedDate || !time || !reminderTime) {
+      Alert.alert('請填寫所有必要欄位');
       return;
     }
-    if (!selectedDate) {
-      Alert.alert('請選擇日期');
-      return;
-    }
-    if (!time) {
-      Alert.alert('請選擇時間');
-      return;
-    }
-    if (!reminderTime) {
-      Alert.alert('請選擇提醒時間');
+
+    // 檢查子任務是否都有標題
+    if (subTasks.some((task) => !task.title.trim())) {
+      Alert.alert('子任務必須要有名稱');
       return;
     }
 
@@ -109,7 +107,7 @@ const AddTodoModal: FC<AddModalProps> = ({ modalVisible, setModalVisible }) => {
       repeat: selectedRepeat as any,
       title: title,
       description: '',
-      subTasks: [],
+      subTasks,
       notes: '',
       checked: false,
     };
@@ -144,6 +142,9 @@ const AddTodoModal: FC<AddModalProps> = ({ modalVisible, setModalVisible }) => {
             onChangeText={(value: string) => setTitle(value)}
           />
         </ModalFormRow>
+        <Separator alignSelf="stretch" marginVertical="$2" />
+        <SubTasks subTasks={subTasks} onUpdateSubTasks={setSubTasks} />
+        <Separator alignSelf="stretch" marginVertical="$2" />
         <ModalFormRow label="時間" icon={<CalendarClock size="$1" />}>
           <Button onPress={showTimePicker}>
             {time ? dayjs(time).format('HH:mm A') : '選擇時間'}
