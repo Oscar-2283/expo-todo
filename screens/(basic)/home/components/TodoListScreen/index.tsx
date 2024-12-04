@@ -22,7 +22,8 @@ import FlagPopup from './components/FlagPopup';
 import FlagComponent from './components/FlagComponent';
 
 const TodoListScreen: FC = () => {
-  const { filteredTodoList, RemoveTodo, checkedTodo, setFlag } = useTodoStore();
+  const { filteredTodoList, RemoveTodo, checkedTodo, setFlag, setStar } =
+    useTodoStore();
   const [openEditModal, setOpenEditModal] = useState(false);
   const [todoId, setTodoId] = useState<string | null>(null);
 
@@ -66,10 +67,16 @@ const TodoListScreen: FC = () => {
     checkedTodo(id, checked);
   };
 
+  // toggle星號
+  const toggleStar = (id: string, star: boolean) => {
+    setStar(id, !star);
+  };
+
   // 往右滑動的按鈕
   const renderRightActions = (
     id: string,
-    progress: Animated.AnimatedInterpolation<number>
+    progress: Animated.AnimatedInterpolation<number>,
+    star: boolean = false
   ) => {
     const trans = progress.interpolate({
       inputRange: [0, 1],
@@ -84,7 +91,7 @@ const TodoListScreen: FC = () => {
           width: 180, // 設定總寬度
         }}
       >
-        <Pressable onPress={() => console.log('加星號')} style={{ flex: 1 }}>
+        <Pressable onPress={() => toggleStar(id, star)} style={{ flex: 1 }}>
           <View
             backgroundColor="$color5"
             padding="$2"
@@ -93,13 +100,12 @@ const TodoListScreen: FC = () => {
             alignItems="center"
             gap="$2"
           >
-            <Star size="$1" />
-            {/* <StarFull size="$2" /> */}
+            {star ? <StarFull size="$1" color="yellow" /> : <Star size="$1" />}
             <Text color="white">加星號</Text>
           </View>
         </Pressable>
 
-        <Pressable onPress={() => console.log('日曆')} style={{ flex: 1 }}>
+        <Pressable onPress={() => handleEdit(id)} style={{ flex: 1 }}>
           <View
             backgroundColor="$color8"
             padding="$2"
@@ -107,7 +113,7 @@ const TodoListScreen: FC = () => {
             justifyContent="center"
             alignItems="center"
             gap="$2"
-          > 
+          >
             <Calendar size="$1" />
             <Text color="white">日曆</Text>
           </View>
@@ -148,7 +154,7 @@ const TodoListScreen: FC = () => {
             >
               <Swipeable
                 renderRightActions={(progress) =>
-                  renderRightActions(item.id, progress)
+                  renderRightActions(item.id, progress, item.star)
                 }
                 overshootRight={false}
                 rightThreshold={10}

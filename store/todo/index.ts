@@ -11,6 +11,7 @@ interface TodoStore {
   UpdatedTodo: (id: string, todo: TodoItem) => void;
   checkedTodo: (id: string, checked: boolean) => void;
   setFlag: (id: string, flag: { type: string; color: string }) => void;
+  setStar: (id: string, star: boolean) => void;
   setFilterText: (text: string) => void;
   filterCategory: string | null;
   setFilterCategory: (category: string | null) => void;
@@ -89,6 +90,15 @@ const useTodoStore = create<TodoStore>((set) => ({
         filteredTodoList: applyFilters(newTodoList, state.filterText, state.filterCategory)
       };
     }),
+  setStar: (id: string, star: boolean) => set((state) => {
+    const newTodoList = state.TodoList.map((item) =>
+      item.id === id ? { ...item, star } : item
+    );
+    return {
+      TodoList: newTodoList,
+      filteredTodoList: applyFilters(newTodoList, state.filterText, state.filterCategory)
+    };
+  }),
   setFilterCategory: (category: string | null) =>
     set((state) => ({
       filterCategory: category,

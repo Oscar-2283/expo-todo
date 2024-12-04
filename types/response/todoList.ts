@@ -18,6 +18,7 @@ export interface TodoItem {
     type: string;
     color: string;
   };
+  star?: boolean;
 }
 
 export interface TodoSubTask {

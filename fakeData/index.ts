@@ -44,6 +44,10 @@ export const FakeTodoData: TodoItem[] = [
     repeat: "每週",
     notes: "這是主項目的備註 B",
     checked: true,
+    flag: {
+      type: "star",
+      color: "#FF0000",
+    }
   },
   {
     id: "3",
@@ -65,6 +69,7 @@ export const FakeTodoData: TodoItem[] = [
     repeat: "每月",
     notes: "這是主項目的備註 C",
     checked: false,
+    star: true,
   },
   {
     id: "4",
@@ -92,9 +97,10 @@ export const FakeTodoData: TodoItem[] = [
     notes: "這是主項目的備註 D",
     checked: false,
     flag: {
-      type: "important",
-      color: "#0000FF",
-    }
+      type: "book",
+      color: "#4A90E2",
+    },
+    star: true,
   },
   {
     id: "5",
