@@ -1,7 +1,8 @@
 import React, { FC, useEffect, useRef } from 'react';
-import { View, Text, Animated, TouchableWithoutFeedback, Dimensions, Easing } from 'react-native';
+import { View, Text, Animated, TouchableWithoutFeedback, Dimensions, Easing, Button } from 'react-native';
 import { Href, Link } from 'expo-router';
 import { useSidebarStyles } from './styles/_styles';
+import { useI18n } from '@/components/i18nContext';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -14,18 +15,20 @@ interface LinkTypes {
 }
 
 const Sidebar:FC<SidebarProps> = ({ isOpen, onClose }) => {
+  const { locale, translations, t, setLocale } = useI18n();
+
   const slideAnim = useRef(new Animated.Value(-Dimensions.get('window').width)).current;
   const styles = useSidebarStyles();
 
   const linkList:LinkTypes[] = [
-    { name: '主題色', href: '/(other)/theme' },
-    { name: '連結2', href: '/' },
-    { name: '連結3', href: '/' },
-    { name: '連結4', href: '/' },
-    { name: '連結5', href: '/' },
-    { name: '連結6', href: '/' },
-    { name: '連結7', href: '/' },
-    { name: '連結8', href: '/' },
+    { name: translations.upgrade_to_pro, href: '/' },
+    { name: translations.starred_tasks, href: '/(other)/star-mission' },
+    { name: translations.theme_color, href: '/(other)/theme' },
+    { name: translations.widgets_coming_soon, href: '/' },
+    { name: translations.donate, href: '/(other)/donate' },
+    { name: translations.feedback, href: '/(other)/feedback' },
+    { name: translations.faq, href: '/(other)/faq' },
+    { name: translations.settings, href: '/(other)/settings' },
   ]
 
   useEffect(() => {
@@ -46,6 +49,10 @@ const Sidebar:FC<SidebarProps> = ({ isOpen, onClose }) => {
       )}
       
       <Animated.View style={[styles.sidebar, { transform: [{ translateX: slideAnim }] }]}>
+      <View style={{ padding: 20 }}>
+        <Button title="Switch to English" onPress={() => setLocale('en')} />
+        <Button title="切換到繁體中文" onPress={() => setLocale('zh')} />
+      </View>
         {/* 使用 Link 元件進行導航 */}
         {linkList.map((link, index) => (
           <Link key={index} href={link.href} style={styles.link}>

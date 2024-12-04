@@ -2,10 +2,12 @@ import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
 import { useEffect } from 'react';
 import * as React from 'react';
-import { TamaguiProvider, useTheme } from 'tamagui';
+import { TamaguiProvider } from 'tamagui';
 import tamaguiConfig from '../tamagui.config';
 import useCommonStore from '@/store/common';
 import { StatusBar } from 'expo-status-bar';
+import I18nProvider from '@/components/i18nContext';
+import StackLayout from '@/components/stackLayout';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -39,35 +41,10 @@ export default function RootLayout() {
 
   return (
     <TamaguiProvider config={tamaguiConfig} defaultTheme={themeType}>
-      <StatusBar style={themeType === 'light' ? 'auto' : 'light'}  />
-      <StackWithTheme />
+      <I18nProvider>
+        <StatusBar style={themeType === 'light' ? 'auto' : 'light'}  />
+        <StackLayout />
+      </I18nProvider>
     </TamaguiProvider>
-  );
-}
-
-
-const StackWithTheme = () => {
-  const theme = useTheme(); // Now accessible within Tamagui context
-
-  return (
-    <Stack>
-      <Stack.Screen name="(basic)" options={{ headerShown: false }} />
-      <Stack.Screen
-        name="(other)/theme/index"
-        options={{
-          headerShown: true,
-          title: '主題',
-          headerStyle: { backgroundColor: theme.background?.val },
-          headerTintColor: theme.color?.val,
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-          // headerBackTitle: '首頁',
-          headerBackTitleVisible: false,
-          // headerBackVisible: false,
-        }}
-      />
-      <Stack.Screen name="+not-found" />
-    </Stack>
   );
 }
