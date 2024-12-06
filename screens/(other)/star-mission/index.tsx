@@ -1,19 +1,18 @@
 import { useI18n } from '@/components/i18nContext';
-import { ScrollView, View, Text } from 'react-native';
+import { ScrollView, View, Text } from 'tamagui';
+import TodoListScreen from './components/TodoListScreen'
 
 const StarMissionScreen = () => {
   const { locale, translations, t, setLocale } = useI18n();
   return (
     <>
-    <ScrollView contentContainerStyle={{ padding: 16 }}>
+    <ScrollView flex={1} backgroundColor="$background">
       <View>
-        <Text>
-          這裡是{t('starred_tasks')}頁面
-        </Text>
+        <TodoListScreen />
       </View>
     </ScrollView>
     </>
   );
 }
- 
+
 export default StarMissionScreen;

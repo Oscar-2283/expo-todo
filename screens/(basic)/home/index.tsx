@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { Button, View, ScrollView, XStack, Text } from 'tamagui';
+import { View, ScrollView, XStack } from 'tamagui';
 import FormInput from '@/components/Form/FormInput';
-import { Plus, EllipsisVertical, Search } from '@tamagui/lucide-icons';
-import AddTodoModal from '@/screens/(basic)/home/components/AddTodoModal';
+import { Plus, EllipsisVertical } from '@tamagui/lucide-icons';
+import AddTodoModal from '@/components/todoList/AddTodoModal';
 import TodoListScreen from '@/screens/(basic)/home/components/TodoListScreen';
 import { Pressable } from 'react-native';
 import useTodoStore from '@/store/todo';

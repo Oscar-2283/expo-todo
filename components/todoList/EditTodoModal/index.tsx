@@ -57,13 +57,14 @@ const EditTodoModal: FC<EditModalProps> = ({
   const [selectedRepeat, setSelectedRepeat] = useState(RepeatEnum.NONE);
   const [selectedCategory, setSelectedCategory] = useState(CategoryEnum.WORK);
   const [subTasks, setSubTasks] = useState<TodoSubTask[]>([]);
+  const [star , setStar] = useState(false);
+
 
   useEffect(() => {
     if (todoId) {
       const todo = TodoList.find((item) => item.id === todoId);
       if (todo) {
         setTitle(todo.title);
-
         setSelectedDate(todo.dueDate);
 
         // 解析時間字串（移除 AM/PM）
@@ -79,6 +80,7 @@ const EditTodoModal: FC<EditModalProps> = ({
         setSelectedRepeat(todo.repeat as RepeatEnum);
         setSelectedCategory(todo.category as CategoryEnum);
         setSubTasks(todo.subTasks || []);
+        setStar(todo.star || false);
       }
     }
   }, [todoId]);
@@ -140,6 +142,7 @@ const EditTodoModal: FC<EditModalProps> = ({
       repeat: selectedRepeat,
       subTasks,
       checked: false,
+      star
     };
 
     UpdatedTodo(todoId, updatedTodo);

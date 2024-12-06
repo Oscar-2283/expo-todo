@@ -6,6 +6,7 @@ interface FormattedData {
   past: TodoItem[];
   present: TodoItem[];
   future: TodoItem[];
+  star: TodoItem[];
 }
 
 const useFormattedData = (data: TodoItem[]): FormattedData => {
@@ -14,19 +15,25 @@ const useFormattedData = (data: TodoItem[]): FormattedData => {
   const [sortedTodos, setSortedTodos] = useState<FormattedData>({
     past: [],
     present: [],
-    future: []
+    future: [],
+    star: []
   });
 
   useEffect(() => {
     const newSortedTodos: FormattedData = {
       past: [],
       present: [],
-      future: []
+      future: [],
+      star: []
     };
 
     data.forEach((item) => {
       const itemDate = dayjs(item.dueDate);
       const todayDate = dayjs(today);
+
+      if (item.star) {
+        newSortedTodos.star.push(item);
+      }
   
       if (itemDate.isBefore(todayDate, 'day')) {
         newSortedTodos.past.push(item);

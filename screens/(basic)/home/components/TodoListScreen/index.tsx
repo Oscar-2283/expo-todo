@@ -16,7 +16,7 @@ import {
 } from 'react-native-gesture-handler';
 
 import useTodoStore from '@/store/todo';
-import EditTodoModal from '../EditTodoModal';
+import EditTodoModal from '@/components/todoList/EditTodoModal';
 import useFormattedData from '@/screens/(basic)/home/hooks/useFormattedData';
 import FlagPopup from './components/FlagPopup';
 import FlagComponent from './components/FlagComponent';
