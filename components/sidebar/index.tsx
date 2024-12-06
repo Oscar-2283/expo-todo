@@ -47,12 +47,7 @@ const Sidebar:FC<SidebarProps> = ({ isOpen, onClose }) => {
           <View style={styles.overlay} />
         </TouchableWithoutFeedback>
       )}
-      
       <Animated.View style={[styles.sidebar, { transform: [{ translateX: slideAnim }] }]}>
-      <View style={{ padding: 20 }}>
-        <Button title="Switch to English" onPress={() => setLocale('en')} />
-        <Button title="切換到繁體中文" onPress={() => setLocale('zh')} />
-      </View>
         {/* 使用 Link 元件進行導航 */}
         {linkList.map((link, index) => (
           <Link key={index} href={link.href} style={styles.link}>

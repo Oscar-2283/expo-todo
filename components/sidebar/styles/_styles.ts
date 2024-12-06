@@ -26,7 +26,7 @@ export const useSidebarStyles = () => {
       zIndex: 2,
       paddingLeft: 20,
       paddingRight: 20,
-      paddingTop: 40,
+      paddingTop: 120,
     },
     sidebarText: {
       fontSize: 24,
